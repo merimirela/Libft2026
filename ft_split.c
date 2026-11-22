@@ -6,7 +6,7 @@
 /*   By: meivanov <meivanov@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/21 22:33:21 by meivanov          #+#    #+#             */
-/*   Updated: 2026/11/22 00:08:47 by meivanov         ###   ########.fr       */
+/*   Updated: 2026/11/22 17:25:02 by meivanov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,36 +16,36 @@
 static size_t	ft_count_words(char const *s, char c)
 {
 	size_t	i;
-	size_t	count;
+	size_t	words_count;
 	int	in_word;
-
+	
 	i = 0;
-	count = 0;
 	in_word = 0;
+	words_count = 0;
 	while (s[i] != '\0')
 	{
-		if (s[i] != c && in_word == 0)
+		if(s[i] != c && in_word != 1)
 		{
 			in_word = 1;
-			count++;	
+			words_count++;
 		}
 		else if (s[i] == c)
 			in_word = 0;
-		i++;
-		return (count);
+		i++; 
 	}
+	return (words_count);
 }
 
-static char	*ft_malloc_each_word(char *s, len)
+static char	*ft_malloc_fill_word(char const *s, size_t len)
 {
-	char	word;
-	char	i;
+	size_t	i;
+	char	*word;
 
 	i = 0;
-	word = malloc (len *sizeof(char) + 1);
+	word = malloc(len * sizeof(char) + 1);
 	if (!word)
-		return(NULL);
-	while (s[i] != '\0')
+		return (NULL);
+	while(i < len)
 	{
 		word[i] = s[i];
 		i++;
@@ -56,7 +56,7 @@ static char	*ft_malloc_each_word(char *s, len)
 
 static void	ft_free_all(char **arr, size_t n)
 {
-	while (n < 0)
+	while (n > 0)
 	{
 		n--;
 		free(arr[n]);
@@ -64,47 +64,56 @@ static void	ft_free_all(char **arr, size_t n)
 	free(arr);
 }
 
-static int	ft_fill_each_word(char *s, len)
+//fills **arr slots, returns 0 if any fail, 1 if **arr created successfully
+static int	ft_fill_pp_arr(char **arr, char const *s, char c)
 {
+	size_t	arr_slot;
+	size_t	len;
 	size_t	i;
-	size_t	i_arr;
 
 	i = 0;
 	while (s[i] != '\0')
 	{
-		if (s[i] == c)
+		while (s[i] == c)
 			i++;
-		else
+		if (s[i] != c)
 		{
 			len = 0;
-			while (s[len] && s[len] != c)
-				len++;
-			arr[i_arr] = ft_malloc_each_word(s, len);
-			if (!arr[i_arr])
+			while (s[i] != c)
 			{
-				ft_free_all(arr, i);
+				i++;
+				len++;
+			}
+			arr[arr_slot] = ft_malloc_fill_word(s, len);
+			if (!arr[arr_slot])
+			{
+				ft_free_all(arr, arr_slot);
 				return (0);
 			}
-			i++;
+			arr_slot++;
 			i = i + len;
 		}
+		i++;
 	}
-	arr[i] = NULL;
+	arr[arr_slot] = '\0';
 	return (1);
 }
+
 char	**ft_split(char const *s, char c)
 {
 	char	**arr;
 
 	if (!s)
 		return (NULL);
-	arr = malloc(ft_count_words(s, c) * sizeof(char) + 1)
+	arr = malloc(ft_count_words(s, c) * sizeof(char) + 1);
 	if (!arr)
 		return (NULL);
-	if (!fill(arr, s, c))
+	arr = ft_fill_pp_arr(arr, s, c);
+	if (!arr)
 		return (NULL);
 	return (arr);
 }
+
 
 #include <stdio.h>
 int	main(int argc, char **argv)
@@ -129,3 +138,18 @@ int	main(int argc, char **argv)
 	}
 	return (0);
 }
+/*
+// Main for additional test functions
+#include <stdio.h>
+int	main(int argc, char **argv)
+{
+	if (argc == 3)
+	{
+		printf("number of words : %zu\n", ft_count_words((argv[1]), argv[2][0]));
+		printf("Malloc_fill_word: %s\n", ft_malloc_fill_word((&argv[1][2]), 4));
+	}
+	else
+		printf("./a.out '  Meri   is awesome!    ' ' '\n");
+	return (0);
+}
+*/
