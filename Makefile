@@ -6,7 +6,7 @@
 #    By: meivanov <meivanov@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/11/03 16:23:07 by meivanov          #+#    #+#              #
-#    Updated: 2026/11/21 22:34:31 by meivanov         ###   ########.fr        #
+#    Updated: 2026/11/22 20:00:28 by meivanov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,8 @@ SRCS	= ft_isalpha.c \
 	  ft_substr.c \
 	  ft_strjoin.c \
 	  ft_strtrim.c \
-	  ft_split.c
+	  ft_split.c \
+	  ft_itoa.c
 
 OBJS	= $(SRCS:%.c=%.o)
 
