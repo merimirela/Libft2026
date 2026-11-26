@@ -6,12 +6,11 @@
 /*   By: meivanov <meivanov@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/23 20:53:55 by meivanov          #+#    #+#             */
-/*   Updated: 2026/11/23 21:25:03 by meivanov         ###   ########.fr       */
+/*   Updated: 2026/11/26 17:02:09 by meivanov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
 /*
 typedef struct s_list
 {
