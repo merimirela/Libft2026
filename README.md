@@ -120,6 +120,7 @@ All files are at the root of the repository, as required.
 
 ### References
 
+- [Meri-Vanguelova-PDF-Resources] (my own Claude generated manuals) https://github.com/merimirela/Meri-Vanguelova-Pdf-Resources/tree/main
 - [My own Libft previous project] (different approach) https://github.com/merimirela/Libft
 - `man 3` pages of the reimplemented functions (`man 3 strlen`, `man 3 memmove`, `man 3 strlcpy`, ...)
 - [Francinette for additional testing] (https://github.com/xicodomingues/francinette)
